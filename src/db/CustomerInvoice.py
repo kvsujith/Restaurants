@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, ForeignKey
 
 
 class CustomerInvoice(Base):
+
     __tablename__ = "CustomerInvoice"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

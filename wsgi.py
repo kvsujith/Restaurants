@@ -1,8 +1,9 @@
 from flask import Flask
-from src.db.BaseDB import Base, engine
+from src.db.register import migrate
 
 app = Flask(__name__)
 
+
 if __name__ == "__main__":
-    Base.metadata.create_all(engine)
+    migrate()
     app.run(debug=True)

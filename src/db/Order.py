@@ -6,6 +6,7 @@ from sqlalchemy import Column, String, Integer, DateTime, Enum, ForeignKey
 
 
 class Order(Base):
+
     __tablename__ = "Order"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

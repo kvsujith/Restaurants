@@ -1,5 +1,4 @@
 from .BaseDB import Base
-from .Utils import get_indian_time
 from sqlalchemy import Column, Integer, ForeignKey
 
 
