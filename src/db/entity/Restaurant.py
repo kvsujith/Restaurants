@@ -1,15 +1,14 @@
-from .BaseDB import Base
-from .ENUMS.TagType import TagType
-from .Utils import get_indian_time
-from sqlalchemy import Column, String, Enum, Integer, DateTime
+from data import Base
+from src.utils.utils import get_indian_time
+from sqlalchemy import Column, String, Integer, DateTime
 
 
-class Tag(Base):
-    __tablename__ = "Tag"
+class Restaurant(Base):
+    __tablename__ = "Restaurant"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(40), nullable=False)
-    type = Column(Enum(TagType))
+    description = Column(String(60), nullable=False)
     created_at = Column(DateTime, default=get_indian_time())
     modified_at = Column(DateTime, onupdate=get_indian_time())
     created_by = Column(String(50), nullable=False)

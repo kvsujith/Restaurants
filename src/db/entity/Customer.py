@@ -1,6 +1,6 @@
-from .BaseDB import Base
-from .Utils import get_indian_time
-from sqlalchemy import Column, Integer, DateTime, String
+from data import Base
+from src.utils.utils import get_indian_time
+from sqlalchemy import Column, Integer , DateTime, String
 
 
 class Customer(Base):

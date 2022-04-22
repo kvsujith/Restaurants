@@ -1,7 +1,7 @@
-from .BaseDB import Base
-from .Utils import get_indian_time
-from .ENUMS.OrderStatus import OrderStatus
-from .ENUMS.OrderType import OrderType
+from data import Base
+from src.utils.utils import get_indian_time
+from src.db.enum.OrderStatus import OrderStatus
+from src.db.enum.OrderType import OrderType
 from sqlalchemy import Column, String, Integer, DateTime, Enum, ForeignKey
 
 
