@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_restx import Api
 
 from api import endpoints
-# from namespaces import (namespaces)
+from .endpoints.tag import tag
 
 __endpoints__ = endpoints
 
@@ -13,5 +13,7 @@ api = Api(
     title="Restaurant API",
     description="Restaurant API",
     version="1.0.0",
+    prefix="/tag_api"
 )
-# api.add_namespace(serve_minio)
+
+api.add_namespace(tag)

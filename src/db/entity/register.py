@@ -1,18 +1,17 @@
-from .Customer import Customer
-from .CustomerInvoice import CustomerInvoice
-from .DiningTable import DiningTable
-from .DiningTableDish import DiningTableDish
-from .Dish import Dish
-from .DishTag import DishTag
-from .Invoice import Invoice
-from .Location import Location
-from .Order import Order
-from .RestaurantTag import RestaurantTag
-from .Restaurant import Restaurant
-from .RestaurantLocation import RestaurantLocation
-from .Tag import Tag
-
 from data import Base, engine
+from .customer import Customer
+from .customer_invoice import CustomerInvoice
+from .dining_table import DiningTable
+from .dining_table_dish import DiningTableDish
+from .dish import Dish
+from .dish_tag import DishTag
+from .invoice import Invoice
+from .location import Location
+from .order import Order
+from .order_dish import OrderDish
+from .restaurant import Restaurant
+from .restaurant_location import RestaurantLocation
+from .restaurant_tag import RestaurantTag
 
 
 def migrate():

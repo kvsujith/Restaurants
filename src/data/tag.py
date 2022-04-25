@@ -1,7 +1,8 @@
 """data file for tag data"""
 from data import SessionData
-from db.entity.Tag import Tag
-from db.enum import TagType
+from db import Tag
+from db.enums.enum import TagType
+from flask import g
 
 
 class TagData(SessionData):
@@ -26,7 +27,9 @@ class TagData(SessionData):
           "type": 1
           }
         """
-        tag_obj = Tag(name=data.get("name"), type=TagType(data.get("type")), created_by=data.get("user_id"))
+        tag_obj = Tag(name=data.get("name"), type=TagType(data.get("type")), created_by=g.user_id,
+                      modified_by=g.user_id)
+
         self.session.add(tag_obj)
         self.session.commit()
         self.session.refresh(tag_obj)

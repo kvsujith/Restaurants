@@ -1,11 +1,12 @@
 from data import Base
+from db.enums.enum import TagType
 from src.utils.utils import get_indian_time
-from src.db.enum.TagType import TagType
 from sqlalchemy import Column, String, Enum, Integer, DateTime
 
 
-class Location(Base):
-    __tablename__ = "Location"
+class Tag(Base):
+
+    __tablename__ = "Tag"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(40), nullable=False)
