@@ -1,6 +1,5 @@
 from data import Base
 from db.enums.enum import TagType
-from src.utils.utils import get_indian_time
 from sqlalchemy import Column, String, Enum, Integer, DateTime, func
 
 
