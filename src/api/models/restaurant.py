@@ -9,7 +9,6 @@ restaurant_model = tag.model(
     }
 )
 
-
 restaurant_view = {
     'id': fields.Integer,
     'name': fields.String,

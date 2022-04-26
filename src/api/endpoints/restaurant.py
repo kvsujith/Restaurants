@@ -13,8 +13,7 @@ class Restaurant(Resource):
 
     @staticmethod
     def get():
-        res = SessionData().session.query(RestaurantDB).all()
-        return get_json_data(res, restaurant_view)
+        return RestaurantAction.get_tags()
 
     @staticmethod
     @restaurant.expect(restaurant_model, validate=True)
@@ -37,7 +36,6 @@ class UpdateRestaurant(Resource):
     @staticmethod
     @restaurant.expect(restaurant_model, validate=True)
     def put(token):
-
         data = request.get_json()
         restaurant_obj = RestaurantAction()
         restaurant_obj = restaurant_obj.update_restaurant(token, data)

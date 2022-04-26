@@ -1,10 +1,17 @@
 """actions file for Restaurant"""
 from flask import g
-from utils.utils import get_indian_time
+from utils.utils import get_indian_time, get_json_data
+from api.models.restaurant import restaurant_view
 from data.restaurant import Restaurant as RestaurantData
 
 
 class Restaurant:
+
+    @staticmethod
+    def get_tags():
+        restaurant_data = RestaurantData().get_data()
+        restaurant_data = get_json_data(restaurant_data, restaurant_view)
+        return restaurant_data
 
     @staticmethod
     def create_restaurant(data):

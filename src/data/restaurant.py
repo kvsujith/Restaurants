@@ -4,6 +4,9 @@ from db.entity.restaurant import Restaurant as RestaurantDB
 
 class Restaurant(SessionData):
 
+    def get_data(self):
+        return self.session.query(RestaurantDB).all()
+
     def create_restaurant(self, data):
         restaurant_obj = RestaurantDB(**data)
         self.session.add(restaurant_obj)
