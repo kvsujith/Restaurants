@@ -1,11 +1,8 @@
 from flask import request
-from data import SessionData
 from flask_restx import Resource
 from api.namespaces import restaurant
-from utils.utils import get_json_data
+from api.models.restaurant import restaurant_model
 from actions.restaurant import Restaurant as RestaurantAction
-from db.entity.restaurant import Restaurant as RestaurantDB
-from api.models.restaurant import restaurant_model, restaurant_view
 
 
 @restaurant.route("")
