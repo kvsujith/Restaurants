@@ -4,7 +4,18 @@ from db.entity.restaurant import Restaurant as RestaurantDB
 
 class Restaurant(SessionData):
 
-    def get_data(self):
+    def get_restaurant(self, restaurant_id):
+        try:
+            restaurant_obj = self.session.query(RestaurantDB).get(restaurant_id)
+            if restaurant_obj is None:
+                raise ValueError("No resource found")
+            return restaurant_obj
+        except ValueError as e:
+            return {"error": str(e)}
+        except Exception as e:
+            return {"error": str(e)}
+
+    def get_restaurants(self):
         return self.session.query(RestaurantDB).all()
 
     def create_restaurant(self, data):

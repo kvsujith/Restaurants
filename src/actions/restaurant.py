@@ -8,10 +8,16 @@ from data.restaurant import Restaurant as RestaurantData
 class Restaurant:
 
     @staticmethod
-    def get_tags():
-        restaurant_data = RestaurantData().get_data()
-        restaurant_data = get_json_data(restaurant_data, restaurant_view)
-        return restaurant_data
+    def get_restaurant(restaurant_id):
+        restaurant_data = RestaurantData().get_restaurant(restaurant_id)
+        if isinstance(restaurant_data, dict):
+            return restaurant_data
+        return get_json_data(restaurant_data, restaurant_view)
+
+    @staticmethod
+    def get_restaurants():
+        restaurant_data = RestaurantData().get_restaurants()
+        return get_json_data(restaurant_data, restaurant_view)
 
     @staticmethod
     def create_restaurant(data):
