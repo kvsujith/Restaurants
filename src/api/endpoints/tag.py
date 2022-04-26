@@ -36,16 +36,27 @@ class Tag(Resource):
         user_name = request.headers.get("username")
         data["user_id"] = user_id
         data["user_name"] = user_name
-        action_result = action_obj.create_tag(data)
-        if action_result.get("error"):
-            return action_result, 400
+        action_obj = action_obj.create_tag(data)
+        if isinstance(action_obj, dict):
+            return action_obj, 400
         result = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_CREATED",
-            "result": action_result,
+            "result": {"id" : action_obj.id},
         }
         return result, 201
+
+
+@tag.route("/<int:tag_id>")
+class Tag(Resource):
+
+    @staticmethod
+    def get(tag_id):
+        try:
+            return TagAction.get_tag(tag_id)
+        except Exception as e:
+            return {"error": str(e)}, 500
 
 
 @tag.route("/update/<int:token>")
@@ -55,15 +66,17 @@ class TagUpdate(Resource):
     @tag.expect(a_tag, validate=True)
     def put(token):
         data = request.get_json()
-        action_obj = TagAction()
-        res = action_obj.update_tag(token, data)
-        if res.get("error"):
-            return res
+        tag_obj = TagAction()
+        tag_obj = tag_obj.update_tag(token, data)
+        if isinstance(tag_obj, dict):
+            return tag_obj, 400
         result = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_UPDATED",
-            "result": res,
+            "result": {
+                "id": tag_obj.id
+            },
         }
         return result, 200
 
