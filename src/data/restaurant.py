@@ -1,25 +1,38 @@
-"""actions file for Tag"""
-from sqlalchemy import and_
-
 from data import SessionData
-from data.tag import TagData
-from db.entity.tag import Tag as TagDB
+from db.entity.restaurant import Restaurant as RestaurantDB
 
 
-class Tag:
+class Restaurant(SessionData):
 
-    @staticmethod
-    def create_restaurant(data):
+    def create_restaurant(self, data):
+        restaurant_obj = RestaurantDB(**data)
+        self.session.add(restaurant_obj)
+        self.session.commit()
+        self.session.refresh(restaurant_obj)
+        return restaurant_obj
 
-        return {}
+    def update_restaurant(self, restaurant_id, data):
+        try:
+            restaurant_obj = self.session.query(RestaurantDB).get(restaurant_id)
+            if restaurant_obj is None:
+                raise ValueError("No resource found")
+            for key, value in data.items():
+                setattr(restaurant_obj, key, value)
+            self.session.commit()
+            self.session.refresh(restaurant_obj)
+            return restaurant_obj
+        except ValueError:
+            return {
+                "error": "No resource found"
+            }
 
-    @staticmethod
-    def update_restaurant(token, data):
-
-        return {}
-
-    @staticmethod
-    def delete_restaurant(_id):
-
-        return True
-
+    def delete_restaurant(self, restaurant_id):
+        try:
+            restaurant_obj = self.session.query(RestaurantDB).get(restaurant_id)
+            if restaurant_obj is None:
+                raise ValueError("No resource found")
+            self.session.delete(restaurant_obj)
+            self.session.commit()
+            return True
+        except ValueError:
+            return False

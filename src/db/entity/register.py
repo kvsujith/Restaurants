@@ -1,17 +1,16 @@
+from db.entity.customer import Customer
+from db.entity.order import Order
+from db.entity.dining_table import DiningTable
+from db.entity.invoice import Invoice
+from db.entity.customer_invoice import CustomerInvoice
+from db.entity.dish import Dish
+from db.entity.dish_tag import DishTag
+from db.entity.location import Location
+from db.entity.order_dish import OrderDish
+from db.entity.restaurant_location import RestaurantLocation
+from db.entity.restaurant_tag import RestaurantTag
+from db.entity.tag import Tag
 from data import Base, engine
-from .customer import Customer
-from .customer_invoice import CustomerInvoice
-from .dining_table import DiningTable
-from .dining_table_dish import DiningTableDish
-from .dish import Dish
-from .dish_tag import DishTag
-from .invoice import Invoice
-from .location import Location
-from .order import Order
-from .order_dish import OrderDish
-from .restaurant import Restaurant
-from .restaurant_location import RestaurantLocation
-from .restaurant_tag import RestaurantTag
 
 
 def migrate():
