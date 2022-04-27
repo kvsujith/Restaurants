@@ -1,5 +1,4 @@
 from data import Base
-from src.utils.utils import get_indian_time
 from sqlalchemy import Column, String, Integer, DateTime,  func
 
 

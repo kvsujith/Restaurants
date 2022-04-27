@@ -43,7 +43,7 @@ class Tag(Resource):
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_CREATED",
-            "result": {"id" : action_obj.id},
+            "result": {"id": action_obj.id},
         }
         return result, 201
 

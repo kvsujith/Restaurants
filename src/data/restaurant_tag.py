@@ -1,8 +1,6 @@
-from sqlalchemy.exc import DataError
-
 from data import SessionData
-from db.entity.restaurant import Restaurant as RestaurantDB
 from db.entity.tag import Tag as TagDB
+from db.entity.restaurant import Restaurant as RestaurantDB
 from db.entity.restaurant_tag import RestaurantTag as RestaurantTagDB
 
 

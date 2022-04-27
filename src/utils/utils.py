@@ -1,7 +1,5 @@
-import json
-from datetime import datetime, timedelta
-
 from flask_restx import marshal
+from datetime import datetime, timedelta
 
 
 def get_indian_time():

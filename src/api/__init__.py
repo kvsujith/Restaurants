@@ -4,6 +4,7 @@ from api import endpoints
 from .endpoints.tag import tag
 from .endpoints.restaurant import restaurant
 from .endpoints.restaurant_tag import restaurant_tag
+from .endpoints.location import location
 
 __endpoints__ = endpoints
 
@@ -20,3 +21,5 @@ api = Api(
 api.add_namespace(tag)
 api.add_namespace(restaurant)
 api.add_namespace(restaurant_tag)
+api.add_namespace(restaurant_tag)
+api.add_namespace(location)
