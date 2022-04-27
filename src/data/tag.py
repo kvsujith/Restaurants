@@ -16,14 +16,14 @@ class TagData(SessionData):
         super(TagData, self).__init__()
         self.tag_id = tag_id
 
-    def tag_exists(self, name, tag_id=None):
+    def tag_exists(self, tag_name, tag_id=None):
         if tag_id is None:
-            if self.session.query(Tag).filter(Tag.name == name).first():
+            if self.session.query(Tag).filter(Tag.name == tag_name).first():
                 return True
             else:
                 return False
         else:
-            if self.session.query(Tag).filter(and_(Tag.name == name, Tag.id != tag_id)).first():
+            if self.session.query(Tag).filter(and_(Tag.name == tag_name, Tag.id != tag_id)).first():
                 return True
             else:
                 return False
@@ -65,16 +65,19 @@ class TagData(SessionData):
         except Exception as e:
             return {"error": str(e)}
 
-    def update_tag(self, _id: int, data: dict):
+    def update_tag(self, tag_id: int, data: dict):
         """
 
-        :param _id: unique id of the object
+        :param tag_id: unique id of the object
         :param data: data for updating the tag object
         :return:
         """
         try:
-            tag_obj = self.session.query(Tag).filter(Tag.id == _id).first()
-
+            tag_obj = self.session.query(Tag).get(tag_id)
+            if tag_obj is None:
+                raise ValueError("No resource found")
+            if self.tag_exists(data["name"], tag_obj.id):
+                raise ValueError(f"Tag name '{data['name']}' already exists. ")
             # set the right value of the TagType to the data
             data["type"] = TagType(data["type"])
             data["modified_by"] = g.user_id
@@ -84,6 +87,9 @@ class TagData(SessionData):
                 self.session.commit()
                 self.session.refresh(tag_obj)
                 return tag_obj
+        except ValueError as e:
+            return {"error": str(e)}
+
         except Exception as e:
             return {"error": str(e)}
 

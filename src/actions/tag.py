@@ -76,11 +76,6 @@ class Tag:
 
         tag_obj = TagData()
 
-        if tag_obj.tag_exists(data["name"], tag_id):
-            return {
-                "error": f"Tag name '{data['name']}' already exists. "
-            }
-
         created_tag = tag_obj.update_tag(tag_id, data)
         return created_tag
 
