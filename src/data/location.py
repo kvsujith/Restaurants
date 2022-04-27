@@ -1,7 +1,6 @@
 """data file for Location data"""
 from data import SessionData
 from db.entity.location import Location as LocationDB
-from db.enums.enum import TagType
 
 
 class Location(SessionData):
@@ -26,7 +25,7 @@ class Location(SessionData):
         return self.session.query(LocationDB).all()
 
     def create_location(self, data: dict):
-        location_obj = LocationDB(name=data["name"], type=TagType(data.get("type")), created_by=data["created_by"])
+        location_obj = LocationDB(name=data["name"], created_by=data["created_by"])
         self.session.add(location_obj)
         self.session.commit()
         self.session.refresh(location_obj)
@@ -38,9 +37,6 @@ class Location(SessionData):
             if location_obj is None:
                 raise ValueError("No resource found")
             for key, value in data.items():
-                if key == "type":
-                    setattr(location_obj, key, TagType(value))
-                    continue
                 setattr(location_obj, key, value)
             self.session.commit()
             self.session.refresh(location_obj)

@@ -1,4 +1,8 @@
 """actions file for Tag"""
+import datetime
+
+from flask import g
+
 from data.tag import TagData
 
 
@@ -75,7 +79,10 @@ class Tag:
             }
 
         tag_obj = TagData()
-
+        data.update({
+            "modified_by": g.user_id,
+            "modified_at": datetime.datetime.now(),
+        })
         created_tag = tag_obj.update_tag(tag_id, data)
         return created_tag
 

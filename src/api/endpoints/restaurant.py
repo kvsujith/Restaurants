@@ -10,7 +10,11 @@ class Restaurant(Resource):
 
     @staticmethod
     def get():
-        return RestaurantAction.get_restaurants()
+        restaurants = RestaurantAction()
+        restaurants = restaurants.get_restaurants()
+        if isinstance(restaurants, dict):
+            return restaurants, 400
+        return restaurants
 
     @staticmethod
     @restaurant.expect(restaurant_model, validate=True)
@@ -18,6 +22,8 @@ class Restaurant(Resource):
         data = request.get_json()
         restaurant_obj = RestaurantAction()
         restaurant_obj = restaurant_obj.create_restaurant(data)
+        if isinstance(restaurant_obj, (dict, list)):
+            return restaurant_obj, 400
         response = {
             "status": "SUCCESS",
             "code": 0,
@@ -32,11 +38,11 @@ class GETRestaurant(Resource):
 
     @staticmethod
     def get(restaurant_id):
-        restaurant_obj = RestaurantAction()
-        restaurant_obj = restaurant_obj.get_restaurant(restaurant_id)
-        if isinstance(restaurant_obj, dict):
-            return restaurant_obj, 400
-        return restaurant_obj, 200
+        restaurants = RestaurantAction()
+        restaurants = restaurants.get_restaurant(restaurant_id)
+        if isinstance(restaurants, dict) and restaurants.get("error"):
+            return restaurants, 400
+        return restaurants
 
 
 @restaurant.route("/update/<int:restaurant_id>")
@@ -48,7 +54,7 @@ class UpdateRestaurant(Resource):
         data = request.get_json()
         restaurant_obj = RestaurantAction()
         restaurant_obj = restaurant_obj.update_restaurant(restaurant_id, data)
-        if isinstance(restaurant_obj, dict):
+        if isinstance(restaurant_obj, (dict, list)):
             return restaurant_obj, 400
         response = {
             "status": "SUCCESS",
@@ -56,7 +62,7 @@ class UpdateRestaurant(Resource):
             "message": "MESSAGE_UPDATED",
             "result": {"id": restaurant_obj.id},
         }
-        return response, 201
+        return response, 200
 
 
 @restaurant.route("/delete/<int:restaurant_id>")

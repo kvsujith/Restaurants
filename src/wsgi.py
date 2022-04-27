@@ -10,4 +10,4 @@ def add_user_details():
 
 if __name__ == "__main__":
     migrate()
-    application.run(host='0.0.0.0', port=7000, debug=True)
+    application.run(host='0.0.0.0', port=8000, debug=True)

@@ -1,4 +1,6 @@
 """actions file for Tag"""
+import datetime
+
 from flask import g
 from data.location import Location as LocationData
 
@@ -16,12 +18,11 @@ class Location:
         location_data = {
             "id": location_data.id,
             "name": location_data.name,
-            "type": location_data.type.value,
             "created_by": location_data.created_by,
             "modified_by": location_data.modified_by,
             "created_at": location_data.created_at.strftime("%Y-%m-%dT%H:%M:%S") if location_data.created_at else None,
             "modified_at": location_data.modified_at.strftime(
-                "%Y-%m-%dT%H:%M:%S") if location_data.modified_at else None,
+                "%Y-%m-%d %H:%M:%S") if location_data.modified_at else None,
         }
         return location_data
 
@@ -32,11 +33,10 @@ class Location:
             {
                 "id": location.id,
                 "name": location.name,
-                "type": location.type.value,
                 "created_by": location.created_by,
                 "modified_by": location.modified_by,
                 "created_at": location.created_at.strftime(
-                    "%Y-%m-%dT%H:%M:%S") if location.created_at else None,
+                    "%Y-%m-%d %H:%M:%S") if location.created_at else None,
                 "modified_at": location.modified_at.strftime(
                     "%Y-%m-%dT%H:%M:%S") if location.modified_at else None,
             } for location in location_data
@@ -59,7 +59,8 @@ class Location:
         if data["name"].strip() == "":
             return {"name": "name field shouldn't left to be blank"}
         data.update({
-            "modified_by": g.user_id
+            "modified_by": g.user_id,
+            "modified_at": datetime.datetime.now(),
         })
         return LocationData().update_location(location_id, data)
 

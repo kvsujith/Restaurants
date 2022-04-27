@@ -80,7 +80,6 @@ class TagData(SessionData):
                 raise ValueError(f"Tag name '{data['name']}' already exists. ")
             # set the right value of the TagType to the data
             data["type"] = TagType(data["type"])
-            data["modified_by"] = g.user_id
             if tag_obj:
                 for key, value in data.items():
                     setattr(tag_obj, key, value)

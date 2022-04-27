@@ -1,10 +1,9 @@
-from flask import Blueprint
-from flask_restx import Api
 from api import endpoints
+from flask_restx import Api
+from flask import Blueprint
 from .endpoints.tag import tag
-from .endpoints.restaurant import restaurant
-from .endpoints.restaurant_tag import restaurant_tag
 from .endpoints.location import location
+from .endpoints.restaurant import restaurant
 
 __endpoints__ = endpoints
 
@@ -19,7 +18,6 @@ api = Api(
 )
 
 api.add_namespace(tag)
-api.add_namespace(restaurant)
-api.add_namespace(restaurant_tag)
-api.add_namespace(restaurant_tag)
 api.add_namespace(location)
+api.add_namespace(restaurant)
+

@@ -6,6 +6,8 @@ restaurant_model = tag.model(
     {
         'name': fields.String(required=True),
         'description': fields.String(required=True),
+        'locations': fields.List(fields.Integer(required=True),required=True),
+        'tags': fields.List(fields.Integer(required=True), required=True),
     }
 )
 
