@@ -10,18 +10,24 @@ class DiningTable(Resource):
 
     @staticmethod
     def get():
-
-        return []
+        dining_obj = DiningTableAction.get_dining_tables()
+        if isinstance(dining_obj, dict):
+            return dining_obj, 400
+        return dining_obj
 
     @staticmethod
     @dining_table.expect(dining_table_model, validate=True)
     def post():
         data = request.get_json()
+        dining_obj = DiningTableAction()
+        dining_obj = dining_obj.create_dining_table(data)
+        if isinstance(dining_obj, dict):
+            return dining_obj, 400
         response = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_CREATED",
-            "result": {"id": data},
+            "result": {"id": dining_obj.id},
         }
         return response, 201
 
@@ -44,12 +50,14 @@ class UpdateDiningTable(Resource):
     @dining_table.expect(dining_table_model, validate=False)
     def put(dining_table_id: int):
         data = request.get_json()
-
+        dining_table_obj = DiningTableAction.update_dining_table(dining_table_id, data)
+        if isinstance(dining_table_obj, dict):
+            return dining_table_obj, 400
         response = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_UPDATED",
-            "result": {"id": data},
+            "result": {"id": dining_table_obj.id},
         }
         return response, 200
 
@@ -59,6 +67,9 @@ class DeleteDiningTable(Resource):
 
     @staticmethod
     def delete(dining_table_id: int):
+        dining_table_obj = DiningTableAction.delete_dining_table(dining_table_id)
+        if isinstance(dining_table_obj, dict):
+            return dining_table_obj, 400
         response = {
             "status": "SUCCESS",
             "code": 0,

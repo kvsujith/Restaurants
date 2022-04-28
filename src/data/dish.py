@@ -92,7 +92,7 @@ class Dish(SessionData):
 
             if data.get("tags"):
                 for tag in self.session.query(DishTagDB).filter_by(dish_id=dish_obj.id):
-                    self.session.delete(tag)
+                    self.sessionDish.delete(tag)
                 self.session.commit()
 
                 dish_tags = [DishTagDB(dish_id=dish_obj.id, tag_id=tag) for tag in data["tags"]]
