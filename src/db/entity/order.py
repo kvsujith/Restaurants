@@ -5,11 +5,11 @@ from sqlalchemy import Column, String, Integer, DateTime, Enum, ForeignKey, func
 
 class Order(Base):
 
-    __tablename__ = "Order"
+    __tablename__ = "Orders"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     order_type = Column(Enum(OrderType))
-    dining_table_id = Column(Integer, ForeignKey("DiningTable.id", ondelete="CASCADE"), nullable=False)
+    dining_table_id = Column(Integer, ForeignKey("DiningTable.id", ondelete="CASCADE"), nullable=True)
     special_message = Column(String(40))
     status = Column(Enum(OrderStatus))
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
