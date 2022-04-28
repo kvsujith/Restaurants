@@ -7,4 +7,5 @@ location = Namespace("location", description="Location API")
 restaurant_location = Namespace("restaurant_location", description="Restaurant Location API")
 dish = Namespace("dish", description="Dish API")
 dining_table = Namespace("dining_table", description="Dining Table API")
+orders = Namespace("orders", description="Order API")
 
