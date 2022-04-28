@@ -6,5 +6,5 @@ class RestaurantTag(Base):
     __tablename__ = "RestaurantTag"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("Restaurant.id"))
-    tag_id = Column(Integer, ForeignKey("Tag.id"))
+    restaurant_id = Column(Integer, ForeignKey("Restaurant.id", ondelete="CASCADE"))
+    tag_id = Column(Integer, ForeignKey("Tag.id", ondelete="CASCADE"))

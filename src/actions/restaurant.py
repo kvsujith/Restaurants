@@ -51,7 +51,6 @@ class Restaurant:
     def update_restaurant(restaurant_id, data):
         data.update({
             "modified_by": g.user_id,
-            "modified_at": datetime.datetime.now(),
         })
 
         restaurant_data = RestaurantData()

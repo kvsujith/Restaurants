@@ -4,6 +4,7 @@ from flask import Blueprint
 from .endpoints.tag import tag
 from .endpoints.location import location
 from .endpoints.restaurant import restaurant
+from .endpoints.dish import dish
 
 __endpoints__ = endpoints
 
@@ -20,4 +21,5 @@ api = Api(
 api.add_namespace(tag)
 api.add_namespace(location)
 api.add_namespace(restaurant)
+api.add_namespace(dish)
 
