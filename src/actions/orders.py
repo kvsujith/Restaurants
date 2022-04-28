@@ -65,6 +65,9 @@ class Orders:
             OrderType(data["order_type"])  # just for validating the enum for valid type
             OrderStatus(data["order_status"])  # just for validating the enum for valid type
 
+            if data.get("restaurant_id") is None:
+                return {"restaurant_id": "This field is required"}
+
             order_item = OrdersData()
 
             if not data["dish_items"]:
@@ -76,7 +79,7 @@ class Orders:
             if data["order_type"] == 2:
 
                 if data.get("dining_table_id") is None:
-                    raise ValueError(f"dining_table_id is required for order type : '{OrderType(2).name}' .")
+                    return {"dining_table_id": f"dining_table_id is required for order type : '{OrderType(2).name}' ."}
 
                 if order_item.validate_dining_table(data["dining_table_id"], data["restaurant_id"]) is None:
                     raise ValueError("Invalid dining_table_id.")
