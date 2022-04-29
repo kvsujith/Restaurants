@@ -1,12 +1,10 @@
 from flask_restx import fields
-from api.namespaces import dining_table
+from api.namespaces import customer
 
-dining_table_model = dining_table.model(
-    'Dining Table',
+customer_model = customer.model(
+    'Customer',
     {
-        'table_no': fields.String(required=True),
-        'description': fields.String(required=True),
-        'restaurant_id': fields.Integer(required=True),
-        'occupied': fields.Boolean(required=True),
+        'name': fields.String(max_length=50, min_length=3, required=True),
+        'phone': fields.String(max_length=13, min_length=10, required=True),
     }
 )

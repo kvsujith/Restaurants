@@ -7,6 +7,7 @@ from .endpoints.location import location
 from .endpoints.restaurant import restaurant
 from .endpoints.dining_table import dining_table
 from .endpoints.orders import orders
+from .endpoints.customer import customer
 
 __endpoints__ = endpoints
 
@@ -26,4 +27,5 @@ api.add_namespace(restaurant)
 api.add_namespace(dish)
 api.add_namespace(dining_table)
 api.add_namespace(orders)
+api.add_namespace(customer)
 

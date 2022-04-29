@@ -1,75 +1,80 @@
 from flask import request
 from flask_restx import Resource
-from api.namespaces import dining_table
-from api.models.dining_table import dining_table_model
-from actions.dining_table import DiningTable as DiningTableAction
+from api.namespaces import customer
+from api.models.customer import customer_model
+from actions.customer import Customer as CustomerAction
 
 
-@dining_table.route("")
-class DiningTable(Resource):
+@customer.route("")
+class Customer(Resource):
 
     @staticmethod
     def get():
-        dining_obj = DiningTableAction.get_dining_tables()
-        if isinstance(dining_obj, dict):
-            return dining_obj, 400
-        return dining_obj
+        customers = CustomerAction.get_customers()
+        if isinstance(customers, dict):
+            return customers, 400
+        return customers
 
     @staticmethod
-    @dining_table.expect(dining_table_model, validate=True)
+    @customer.expect(customer_model, validate=True)
     def post():
         data = request.get_json()
-        dining_obj = DiningTableAction()
-        dining_obj = dining_obj.create_dining_table(data)
-        if isinstance(dining_obj, dict):
-            return dining_obj, 400
+        customer_obj = CustomerAction()
+        customer_obj = customer_obj.create_customer(data)
+        if isinstance(customer_obj, dict):
+            return customer_obj
         response = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_CREATED",
-            "result": {"id": dining_obj.id},
+            "result": {"id": customer_obj.id},
         }
         return response, 201
 
 
-@dining_table.route("/<int:dining_table_id>")
-class GetDiningTable(Resource):
+@customer.route("/<int:customer_id>")
+class GetCustomer(Resource):
 
     @staticmethod
-    def get(dining_table_id: int):
-        dining_obj = DiningTableAction.get_dining_table(dining_table_id)
-        if dining_obj.get("error"):
-            return dining_obj, 400
-        return dining_obj
+    def get(customer_id: int):
+        customer_obj = CustomerAction()
+        customer_obj = customer_obj.get_customer(customer_id)
+        if isinstance(customer_obj, dict):
+            return customer_obj, 400
+        return customer_obj
 
 
-@dining_table.route("/update/<int:dining_table_id>")
-class UpdateDiningTable(Resource):
+@customer.route("/update/<int:customer_id>")
+class UpdateCustomer(Resource):
 
     @staticmethod
-    @dining_table.expect(dining_table_model, validate=False)
-    def put(dining_table_id: int):
+    @customer.expect(customer_model, validate=False)
+    def put(customer_id: int):
         data = request.get_json()
-        dining_table_obj = DiningTableAction.update_dining_table(dining_table_id, data)
-        if isinstance(dining_table_obj, dict):
-            return dining_table_obj, 400
+        customer_obj = CustomerAction()
+        customer_obj = customer_obj.update_customer(customer_id, data)
+        if isinstance(customer_obj, dict):
+            return customer_obj, 400
         response = {
             "status": "SUCCESS",
             "code": 0,
             "message": "MESSAGE_UPDATED",
-            "result": {"id": dining_table_obj.id},
+            "result": {"id": customer_obj.id},
         }
         return response, 200
 
 
-@dining_table.route("/delete/<int:dining_table_id>")
-class DeleteDiningTable(Resource):
+@customer.route("/delete/<int:customer_id>")
+class DeleteCustomer(Resource):
 
     @staticmethod
-    def delete(dining_table_id: int):
-        dining_table_obj = DiningTableAction.delete_dining_table(dining_table_id)
-        if isinstance(dining_table_obj, dict):
-            return dining_table_obj, 400
+    def delete(customer_id: int):
+
+        customer_obj = CustomerAction()
+        customer_obj = customer_obj.delete_customer(customer_id)
+        if isinstance(customer_obj, dict):
+            return customer_obj, 400
+
         response = {
             "status": "SUCCESS",
             "code": 0,
